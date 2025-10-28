@@ -10,7 +10,7 @@ var C = 20; // Constant for beta distribution parameter scaling
 // These variables are used to keep track of the application's state and to update the UI accordingly.
 var data; // Main data store for typing statistics
 var layouts; // Keyboard layout configurations
-var audio; // Audio feedback samples
+// var audio; // Audio feedback samples
 var keyPresses; // Track currently pressed keys
 var key_pressed_timestamp; // Timestamp of last keypress
 var confetti; // Confetti effect instance
@@ -184,7 +184,7 @@ function reset_database() {
   // This clears all typing statistics data and starts a new session.
   data = {};
   layouts = {};
-  audio = {};
+  // audio = {};
   keyPresses = {};
   // Reset the key pressed timestamp.
   // This ensures that the latency measurement is properly reset.
@@ -206,7 +206,7 @@ function reset_database() {
   initialize_ngram_db(corpus);
   // Load the audio feedback samples.
   // This loads the audio feedback samples for the new session.
-  load_audio();
+  // load_audio();
 }
 
 // Function to get the ngram size.
@@ -282,7 +282,7 @@ function keydownHandler(e) {
     key_pressed_timestamp = null;
     // Play the correct audio sample.
     // This plays the correct audio sample when the backspace key is pressed.
-    play_key_audio_sample("correct", "Backspace");
+    // play_key_audio_sample("correct", "Backspace");
     // Check if the word index is greater than 0.
     // This checks if there are characters to delete.
     if (data.word_index > 0) {
@@ -450,7 +450,7 @@ function keyHandler(e) {
     }
     // Play the correct audio sample.
     // This plays the correct audio sample when the key press is correct.
-    play_key_audio_sample("correct", key);
+    // play_key_audio_sample("correct", key);
     // Set the is correct flag to true.
     // This sets the is correct flag to true to reflect the correct key press.
     is_correct = true;
@@ -460,7 +460,7 @@ function keyHandler(e) {
   else {
     // Play the mistake audio sample.
     // This plays the mistake audio sample when the key press is incorrect.
-    play_key_audio_sample("mistake", key);
+    // play_key_audio_sample("mistake", key);
     // Update the word errors at the current index to true.
     // This updates the word errors at the current index to true to reflect the error.
     data.word_errors[data.word_index] = true;
@@ -511,7 +511,7 @@ function keyHandler(e) {
   ) {
     // Play the next word audio sample.
     // This plays the next word audio sample when the word is completed correctly.
-    play_next_word_audio_sample();
+    // play_next_word_audio_sample();
     // Generate a new word.
     // This generates a new word to start a new typing practice session.
     next_word();
@@ -600,7 +600,7 @@ function next_word() {
   // This saves the data to persist the typing statistics.
   save();
   // Play the next word sound sample
-  play_next_word_audio_sample();
+  // play_next_word_audio_sample();
 }
 
 // Function to save the data.
@@ -648,7 +648,7 @@ function load() {
     reset_database();
   }
 }
-
+/*
 // Function to play the next word audio sample.
 // This function is used to play the next word audio sample when a word is completed correctly.
 function play_next_word_audio_sample() {
@@ -657,7 +657,7 @@ function play_next_word_audio_sample() {
   audio.next_word.currentTime = 0;
   audio.next_word.play().catch((_) => {});
 }
-
+/*
 // Function to load the audio feedback samples.
 // This function is used to load the audio feedback samples to provide feedback to the user.
 function load_audio() {
@@ -667,11 +667,12 @@ function load_audio() {
   audio.mistake = new Map();
   // Load the next word audio sample.
   // This loads the next word audio sample to provide feedback to the user.
-  audio.next_word = new Audio("vendor/poker_card_flick.mp3");
+  // audio.next_word = new Audio("vendor/poker_card_flick.mp3");
 }
 
 // Function to play a key audio sample.
 // This function is used to play a key audio sample to provide feedback to the user.
+/*
 function play_key_audio_sample(soundname, key) {
   // Try to play the key audio sample.
   // This tries to play the key audio sample to provide feedback to the user.
@@ -701,6 +702,7 @@ function play_key_audio_sample(soundname, key) {
     console.warn("Error playing audio:", error);
   }
 }
+*/
 
 // Function to update the character statistics.
 // This function is used to update the character statistics to reflect the user's typing practice.
@@ -1045,9 +1047,7 @@ function word_to_ngrams(word, ngram_size) {
 function fetchCorpusList() {
   // Fetch the corpus list from the MonkeyType repository.
   // This fetches the corpus list from the MonkeyType repository to populate the corpus selector.
-  fetch(
-    "_groups.json",
-  )
+  fetch("_groups.json")
     .then((response) => response.json())
     .then((data) => {
       // Populate the corpus selector with the corpus list.
@@ -1099,7 +1099,7 @@ function fetchCorpus(corpus_name) {
   // Fetch the corpus from the MonkeyType repository.
   // This fetches the corpus from the MonkeyType repository to load it for typing practice.
   fetch(
-    `https://raw.githubusercontent.com/monkeytypegame/monkeytype/refs/heads/master/frontend/static/languages/${corpus_name}.json`,
+    `https://raw.githubusercontent.com/Ash-Cozey/monkeytype/refs/heads/master/frontend/static/languages/${corpus_name}.json`,
   )
     .then((response) => response.json())
     .then((data) => {
