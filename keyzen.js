@@ -1047,7 +1047,7 @@ function word_to_ngrams(word, ngram_size) {
 function fetchCorpusList() {
   // Fetch the corpus list from the MonkeyType repository.
   // This fetches the corpus list from the MonkeyType repository to populate the corpus selector.
-  fetch("_groups.json")
+  fetch("https://raw.githubusercontent.com/Ash-Cozey/keyzen-mab/refs/heads/bugfix/corpus_selector_dropdown_empty/_groups.json")
     .then((response) => response.json())
     .then((data) => {
       // Populate the corpus selector with the corpus list.
